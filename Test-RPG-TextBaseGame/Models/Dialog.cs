@@ -8,6 +8,7 @@ namespace Test_RPG_TextBaseGame.Models
 {
     class Dialog
     {
+        public string ID { get; set; }
         public string Text { get; set; }
         public List<Action> Actions { get; set; }
         public List<Option> Options { get; set; }

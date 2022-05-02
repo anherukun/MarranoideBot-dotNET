@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Test_RPG_TextBaseGame.Models;
@@ -9,27 +10,22 @@ namespace Test_RPG_TextBaseGame
 {
     class Program
     {
-
-        static void Main(string[] args)
+        public PlayData Data { get; set; }
+        public Program()
         {
-            GameHistory history = new GameHistory();
-
-            using (StreamReader file = File.OpenText($"{AppContext.BaseDirectory}Assets/GameHistory.json"))
+            if (true)
             {
-
-                string s = file.ReadToEnd();
-
-                try
-                {
-                    history.Dialogs = JsonConvert.DeserializeObject<List<Dialog>>(s);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex);
-                }
+                Data = GameService.NewGame();
             }
+        }
 
-            Console.WriteLine($"Hello World! {AppContext.BaseDirectory}");
+        public static Task Main(string[] args) => new Program().MainAsync();
+
+        public async Task MainAsync()
+        {
+            GameService.StartGame(Data);
+
+            await Task.Delay(100);
         }
     }
 }

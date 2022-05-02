@@ -59,7 +59,6 @@ namespace MarranoideBot_dotNET
                 await services.GetRequiredService<CommandHandler>().InitializeAsync();
 
                 await Task.Delay(-1);
-
             }
         }
 

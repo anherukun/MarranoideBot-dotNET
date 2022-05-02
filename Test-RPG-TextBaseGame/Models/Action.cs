@@ -15,8 +15,11 @@ namespace Test_RPG_TextBaseGame.Models
 
     class TAction
     {
-        public static string SAVE = "SAVE";
-        public static string GODIALOG = "GODIALOG";
-        public static string TAKEOBJECT = "TAKEOBJECT";
+        public const string SAVE = "SAVE";
+        public const string GODIALOG = "GODIALOG";
+        public const string TAKEOBJECT = "TAKEOBJECT";
+        public const string EXITGAME = "EXITGAME";
+        public const string INVENTORY = "INVENTORY";
+        public const string USEOBJECT = "USEOBJECT";
     }
 }
