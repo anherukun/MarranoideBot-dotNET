@@ -1,7 +1,7 @@
 [
     {
         "id": "A0",
-        "text": "Simplemente despertaste, en una habitacion en donde no recuerdas como haz llegado a ella. No traias nada mas que tu precencia misma, pero aun asi sientes que algo te hace falta",
+        "text": "**(Simplemente despertaste, en una habitacion en donde no recuerdas como haz llegado a ella. No traias nada mas que tu precencia misma, pero aun asi sientes que algo te hace falta)**",
         "actions": [
             {
                 "taction": "SAVE",
@@ -24,7 +24,7 @@
     },
     {
         "id": "A0-1",
-        "text": "Miras a tu alrededor obserbas con detenimiento, todo se ve destruido pero algo te dice que es un lugar conocido para ti. Por lo que empiezas a buscar pistas que ayuden a entender que haces ahi...",
+        "text": "**(Miras a tu alrededor obserbas con detenimiento, todo se ve destruido pero algo te dice que es un lugar conocido para ti. Por lo que empiezas a buscar pistas que ayuden a entender que haces ahi...)**",
         "actions": null,
         "options": [
             {
@@ -51,7 +51,7 @@
     },
     {
         "id": "A0-2",
-        "text": "Abriste la puerta del armario, pero casi no hay nada. Solo ropa vieja, una espada de madera y una tunica que desprende una energia inexplicable",
+        "text": "**(Abriste la puerta del armario, pero casi no hay nada. Solo ropa vieja, una espada de madera y una tunica que desprende una energia inexplicable)**",
         "actions": null,
         "options": [
             {
