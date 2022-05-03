@@ -5,8 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Test_RPG_TextBaseGame.Models;
+using Action = Test_RPG_TextBaseGame.Models.Action;
 
-namespace Test_RPG_TextBaseGame.Models
+namespace Test_RPG_TextBaseGame.Service
 {
     class GameService
     {
@@ -15,13 +17,23 @@ namespace Test_RPG_TextBaseGame.Models
             bool inGame = true;
             do
             {
-                if (data.Game.Dialogs.First(x => x.ID == data.CurrentDialog).Actions != null)
-                    DoActions(data.Game.Dialogs.First(x => x.ID == data.CurrentDialog).Actions, data);
+                //if (data.Game.Dialogs.First(x => x.ID == data.CurrentDialog).Actions != null)
+                // DoActions(ref data, data);
 
                 PrintDialog(data.Game.Dialogs.First(x => x.ID == data.CurrentDialog));
 
                 if (data.Game.Dialogs.First(x => x.ID == data.CurrentDialog).Options != null)
+                {
                     ShowOptions(data.Game.Dialogs.First(x => x.ID == data.CurrentDialog), data);
+
+                    var response = ReadResponse();
+                    var option = 0;
+                    if (int.TryParse(response, out option))
+                    {
+                        Console.WriteLine(DoActions(ref data, option));
+                        Console.ReadLine();
+                    }
+                }
             }
             while (inGame);
         }
@@ -48,58 +60,47 @@ namespace Test_RPG_TextBaseGame.Models
 
         public static void PrintDialog(Dialog d)
         {
+            Console.Clear();
             Console.WriteLine(d.Text);
         }
 
-        private static bool ShowOptions(Dialog d, PlayData data)
+        private static void ShowOptions(Dialog d, PlayData data)
         {
-            string response = "";
             Console.WriteLine("De las siguentes opciones:");
 
             for (int i = 0; i < d.Options.Count; i++)
             {
                 Console.WriteLine($"[{i}] - {d.Options[i].Label}");
             }
-            Console.Write("Tu respuesta es: ");
-            response = Console.ReadLine();
-
-            if (response.Trim() != "")
-                for (int i = 0; i < d.Options.Count; i++)
-                {
-                    if (i == int.Parse(response))
-                        return DoActions(d.Options[i].Actions, data);
-                }
-
-            return false;
         }
 
-        private static bool DoActions(List<Action> actions, PlayData data)
+        private static string ReadResponse()
         {
-            foreach (var item in actions)
+            Console.Write("Tu respuesta es: ");
+            return Console.ReadLine();
+        }
+
+        private static string DoActions(ref PlayData data, int o)
+        {
+            var currentDialog = data.CurrentDialog;
+            var response = "";
+            for (int i = 0; i < data.Game.Dialogs.First(x => x.ID == currentDialog).Options[o].Actions.Count(); i++)
             {
-                switch (item.Taction)
+                switch (data.Game.Dialogs.First(x => x.ID == currentDialog).Options[o].Actions[i].Taction)
                 {
-                    case TAction.SAVE:
-                        return true;
-                    case TAction.EXITGAME:
-                        return false;
                     case TAction.GODIALOG:
-                        data.CurrentDialog = item.Value;
-                        return true;
+                        data.CurrentDialog = data.Game.Dialogs.First(x => x.ID == currentDialog).Options[o].Actions[i].Value;
+                        response = "...";
+                        break;
                     case TAction.TAKEOBJECT:
-                        return true;
+                        response += $"Objetos obtenidos... {data.Game.Dialogs.First(x => x.ID == currentDialog).Options[o].Actions[i].Value}\n";
+                        break;
                     case TAction.USEOBJECT:
-                        return true;
-                    case TAction.INVENTORY:
-                        return true;
+                        response = $"Haz utilizado el objeto: ";
+                        break;
                 }
             }
-            return false;
-        }
-
-        private static void DoActions()
-        {
-            // throw new NotImplementedException();
+            return response;
         }
     }
 }
