@@ -4,6 +4,7 @@ using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using Discord;
 using Discord.Interactions;
+using Discord.WebSocket;
 using MarranoideBot_dotNET.Services;
 
 namespace MarranoideBot_dotNET.SlashCommands
