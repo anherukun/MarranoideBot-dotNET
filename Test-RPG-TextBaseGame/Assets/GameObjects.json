@@ -3,6 +3,7 @@
         "systemName": "ancient-wood-sword",
         "name": "Espada de madera antigua",
         "description": "No sabes mucho de ella, pero observandolo en detenimiento se alcanza a ver que tiene grabado algo parecido a tu nombre",
+        "tgameobject": "weapon",
         "maxStack": 1,
         "buffs": [
             {
@@ -15,6 +16,7 @@
         "systemName": "magician-coat",
         "name": "Tunica magica",
         "description": "Aunque sea solo piel y tela unidas, la confeccion fue hecha al milimetro y ademas se puede sentir un gran poder magico emanando de ella",
+        "tgameobject": "armor",
         "maxStack": 1,
         "buffs": [
             {

@@ -13,7 +13,7 @@ namespace Test_RPG_TextBaseGame.Models
         public string PlayDataID { get; set; }
         public Player Player { get; set; } = new Player();
         public List<GameObject> GlobalObjects { get; set; } = new List<GameObject>();
-        public string CurrentDialog { get; set; } = "A0";
         public GameHistory Game { get; set; } = new GameHistory();
+        public string CurrentDialog { get; set; } = "A0";
     }
 }

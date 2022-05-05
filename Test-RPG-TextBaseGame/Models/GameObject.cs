@@ -11,7 +11,14 @@ namespace Test_RPG_TextBaseGame.Models
         public string SystemName { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public string TGameObject { get; set; }
         public int MaxStack { get; set; }
         public List<Buff> Buffs { get; set; }
+    }
+
+    class TGameObject {
+        public const string Weapon = "weapon";
+        public const string Armor = "armor";
+        public const string Consumable = "consumable";
     }
 }
