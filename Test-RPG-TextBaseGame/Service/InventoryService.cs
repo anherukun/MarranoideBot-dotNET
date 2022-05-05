@@ -22,11 +22,23 @@ namespace Test_RPG_TextBaseGame.Service
                 });
             else
             {
-                playData.Player.Inventory[GetIndexOfAvailiableStack(systemName, playData)].Quantity += quantity;
+                try
+                {
+                    playData.Player.Inventory[GetIndexOfAvailiableStack(systemName, playData)].Quantity += quantity;
+                }
+                catch (Exception ex)
+                {
+                    playData.Player.Inventory.Add(new InventoryObject()
+                    {
+                        Object = playData.GlobalObjects.Find(x => x.SystemName == systemName),
+                        Quantity = quantity
+                    });
+                }
             }
         }
 
-        private static int GetIndexOfAvailiableStack(string systemName, PlayData playData) {
+        private static int GetIndexOfAvailiableStack(string systemName, PlayData playData)
+        {
             var items = playData.Player.Inventory;
 
             for (int i = 0; i < items.Count; i++)
@@ -35,7 +47,7 @@ namespace Test_RPG_TextBaseGame.Service
                     return i;
             }
 
-            throw new Exception("Elemento no enconrtado en el inventario");
+            throw new Exception("Stacks sin espacios disponibles");
         }
 
         public static bool ExistItem(string systemName, PlayData playData)
