@@ -19,6 +19,7 @@ namespace Test_RPG_TextBaseGame.Models
     class TGameObject {
         public const string Weapon = "weapon";
         public const string Armor = "armor";
+        public const string Accesory = "accesory";
         public const string Consumable = "consumable";
     }
 }

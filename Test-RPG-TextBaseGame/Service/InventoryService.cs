@@ -37,6 +37,18 @@ namespace Test_RPG_TextBaseGame.Service
             }
         }
 
+        public static void Use(int index, ref PlayData playData)
+        {
+            if (playData.Player.Inventory[index].Quantity > 1)
+            {
+                playData.Player.Inventory[index].Quantity -= 1;
+            }
+            else
+            {
+                playData.Player.Inventory.RemoveAt(index);
+            }
+        }
+
         private static int GetIndexOfAvailiableStack(string systemName, PlayData playData)
         {
             var items = playData.Player.Inventory;

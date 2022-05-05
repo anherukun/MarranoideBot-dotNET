@@ -14,5 +14,6 @@ namespace Test_RPG_TextBaseGame.Models
         public int Mana { get; set; }
         public int Zenny { get; set; }
         public List<InventoryObject> Inventory { get; set; } = new List<InventoryObject>();
+        public Equipment Equipment { get; set; }
     }
 }
