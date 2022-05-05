@@ -12,6 +12,9 @@ namespace Test_RPG_TextBaseGame.Service
 {
     class GameService
     {
+        public static List<GameData> GetListOfGames() {
+            throw new NotImplementedException();
+        }
         public static void StartGame(PlayData data)
         {
             bool inGame = true;

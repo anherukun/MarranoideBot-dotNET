@@ -1,0 +1,9 @@
+[
+    {
+        "id": "forgoten-game",
+        "gamename": "Sin memoria",
+        "description": "Aventurate en la travesia de un joven aventurero en busca de algo perido",
+        "gamehistorypath": "Assets/forgoten-game/GameHistory.json",
+        "gameobjectpath": "Assets/forgoten-game/GameObjects.json"
+    }
+]
