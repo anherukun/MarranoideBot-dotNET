@@ -12,17 +12,30 @@ namespace Test_RPG_TextBaseGame.Service
 {
     class GameService
     {
-        public static List<GameData> GetListOfGames() {
-            throw new NotImplementedException();
+        public static List<GameData> GetListOfGames()
+        {
+            List<GameData> gameDatas;
+             using (StreamReader file = File.OpenText($"{AppContext.BaseDirectory}Assets/GamesData.json"))
+            {
+                string s = file.ReadToEnd();
+
+                try
+                {
+                    gameDatas = new List<GameData>(JsonConvert.DeserializeObject<List<GameData>>(s));
+                    return gameDatas;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                    return null;
+                }
+            }
         }
         public static void StartGame(PlayData data)
         {
             bool inGame = true;
             do
             {
-                //if (data.Game.Dialogs.First(x => x.ID == data.CurrentDialog).Actions != null)
-                // DoActions(ref data, data);
-
                 PrintDialog(data.Game.Dialogs.First(x => x.ID == data.CurrentDialog));
 
                 if (data.Game.Dialogs.First(x => x.ID == data.CurrentDialog).Options != null)
@@ -37,21 +50,27 @@ namespace Test_RPG_TextBaseGame.Service
                         Console.ReadLine();
                     }
                 }
+
+                foreach (var item in data.Player.Inventory)
+                {
+                    Console.WriteLine($"Item de inventario: {item.Object.Name}, cantidad: {item.Quantity} ");
+                    Console.ReadLine();
+                }
             }
             while (inGame);
         }
 
-        public static PlayData NewGame()
+        public static PlayData NewGame(GameData gameData)
         {
-            using (StreamReader file = File.OpenText($"{AppContext.BaseDirectory}Assets/GameHistory.json"))
+            PlayData data = new PlayData();
+
+            using (StreamReader file = File.OpenText($"{AppContext.BaseDirectory}{gameData.GameHistoryPath}"))
             {
                 string s = file.ReadToEnd();
 
                 try
                 {
-                    PlayData data = new PlayData();
                     data.Game.Dialogs = new List<Dialog>(JsonConvert.DeserializeObject<List<Dialog>>(s));
-                    return data;
                 }
                 catch (Exception ex)
                 {
@@ -59,6 +78,23 @@ namespace Test_RPG_TextBaseGame.Service
                     return null;
                 }
             }
+
+            using (StreamReader file = File.OpenText($"{AppContext.BaseDirectory}{gameData.GameObjectPath}"))
+            {
+                string s = file.ReadToEnd();
+
+                try
+                {
+                    data.GlobalObjects = new List<GameObject>(JsonConvert.DeserializeObject<List<GameObject>>(s));
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                    return null;
+                }
+            }
+
+            return data;
         }
 
         public static void PrintDialog(Dialog d)
@@ -96,6 +132,7 @@ namespace Test_RPG_TextBaseGame.Service
                         response = "...";
                         break;
                     case TAction.TAKEOBJECT:
+                        InventoryService.Add(data.Game.Dialogs.First(x => x.ID == currentDialog).Options[o].Actions[i].Value, data.Game.Dialogs.First(x => x.ID == currentDialog).Options[o].Actions[i].Quantity.Value, ref data);
                         response += $"Objetos obtenidos... {data.Game.Dialogs.First(x => x.ID == currentDialog).Options[o].Actions[i].Value}\n";
                         break;
                     case TAction.USEOBJECT:

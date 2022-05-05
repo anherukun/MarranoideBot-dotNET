@@ -14,17 +14,30 @@ namespace Test_RPG_TextBaseGame
         public PlayData Data { get; set; }
         public Program()
         {
-            if (true)
+            var listofgames = GameService.GetListOfGames();
+            for (int i = 0; i < listofgames.Count; i++)
             {
-                Data = GameService.NewGame();
+                Console.WriteLine($"[{i}] - {listofgames[i].GameName} - {listofgames[i].Description}");
             }
+
+            Console.WriteLine("Selecciona un juego para iniciar: ");
+
+            var s = Console.ReadLine();
+            var o = -1;
+            if (int.TryParse(s, out o))
+            {
+                Data = GameService.NewGame(listofgames[o]);
+            }
+            else
+                Console.WriteLine("Opcion incorrecta, terminando proceso");
         }
 
         public static Task Main(string[] args) => new Program().MainAsync();
 
         public async Task MainAsync()
         {
-            GameService.StartGame(Data);
+            if (Data != null)
+                GameService.StartGame(Data);
 
             await Task.Delay(100);
         }
